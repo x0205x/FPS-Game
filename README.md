@@ -1,4 +1,4 @@
-# FPS Game
+# W.I.P | FPS\RTS\Future MMO Game
 
 Third-person FPS built with **Unity 6 LTS**, URP, Cinemachine 3, and the Input System.
 
