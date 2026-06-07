@@ -1,3 +1,5 @@
+<img width="480" height="480" alt="giphy (2)" src="https://github.com/user-attachments/assets/bbe7f378-4cd6-4d94-b031-2ec5bc2fe9bd" />
+
 # W.I.P | FPS\RTS\Future MMO Game
 
 Third-person FPS built with **Unity 6 LTS**, URP, Cinemachine 3, and the Input System.
