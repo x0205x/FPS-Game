@@ -169,3 +169,7 @@ Packages/packages-lock.json linguist-generated
 
 # Exceptions for .asset files such as lightning pre-baking
 LightingData.asset     binary
+
+# WebGL demo binaries for GitHub Pages
+docs/Build/*.wasm       lfs
+docs/Build/*.data       lfs

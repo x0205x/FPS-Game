@@ -23,6 +23,9 @@ namespace Game.EditorTools
             if (!Directory.Exists(outputPath))
                 Directory.CreateDirectory(outputPath);
 
+            // GitHub Pages does not set Content-Encoding: gzip for .gz assets.
+            PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Disabled;
+
             string[] scenes = ResolveScenes();
             if (scenes.Length == 0)
             {
