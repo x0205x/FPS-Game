@@ -1,0 +1,123 @@
+{
+    "name": "PlayerInputActions",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c001",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c101",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Look",
+                    "type": "Value",
+                    "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c102",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c103",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Run",
+                    "type": "Button",
+                    "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c104",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Aim",
+                    "type": "Button",
+                    "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c105",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Fire",
+                    "type": "Button",
+                    "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c106",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Reload",
+                    "type": "Button",
+                    "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c107",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c108",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "WASD",
+                    "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c201",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                { "name": "up",    "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c202", "path": "<Keyboard>/w", "interactions": "", "processors": "", "groups": "", "action": "Move", "isComposite": false, "isPartOfComposite": true },
+                { "name": "down",  "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c203", "path": "<Keyboard>/s", "interactions": "", "processors": "", "groups": "", "action": "Move", "isComposite": false, "isPartOfComposite": true },
+                { "name": "left",  "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c204", "path": "<Keyboard>/a", "interactions": "", "processors": "", "groups": "", "action": "Move", "isComposite": false, "isPartOfComposite": true },
+                { "name": "right", "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c205", "path": "<Keyboard>/d", "interactions": "", "processors": "", "groups": "", "action": "Move", "isComposite": false, "isPartOfComposite": true },
+                { "name": "",      "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c206", "path": "<Gamepad>/leftStick", "interactions": "", "processors": "", "groups": "", "action": "Move", "isComposite": false, "isPartOfComposite": false },
+
+                { "name": "", "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c301", "path": "<Mouse>/delta", "interactions": "", "processors": "ScaleVector2(x=0.1,y=0.1)", "groups": "", "action": "Look", "isComposite": false, "isPartOfComposite": false },
+                { "name": "", "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c302", "path": "<Gamepad>/rightStick", "interactions": "", "processors": "", "groups": "", "action": "Look", "isComposite": false, "isPartOfComposite": false },
+
+                { "name": "", "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c401", "path": "<Keyboard>/space", "interactions": "", "processors": "", "groups": "", "action": "Jump", "isComposite": false, "isPartOfComposite": false },
+                { "name": "", "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c402", "path": "<Gamepad>/buttonSouth", "interactions": "", "processors": "", "groups": "", "action": "Jump", "isComposite": false, "isPartOfComposite": false },
+
+                { "name": "", "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c501", "path": "<Keyboard>/leftShift", "interactions": "", "processors": "", "groups": "", "action": "Run", "isComposite": false, "isPartOfComposite": false },
+                { "name": "", "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c502", "path": "<Gamepad>/leftStickPress", "interactions": "", "processors": "", "groups": "", "action": "Run", "isComposite": false, "isPartOfComposite": false },
+
+                { "name": "", "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c601", "path": "<Mouse>/rightButton", "interactions": "", "processors": "", "groups": "", "action": "Aim", "isComposite": false, "isPartOfComposite": false },
+                { "name": "", "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c602", "path": "<Gamepad>/leftTrigger", "interactions": "", "processors": "", "groups": "", "action": "Aim", "isComposite": false, "isPartOfComposite": false },
+
+                { "name": "", "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c701", "path": "<Mouse>/leftButton", "interactions": "", "processors": "", "groups": "", "action": "Fire", "isComposite": false, "isPartOfComposite": false },
+                { "name": "", "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c702", "path": "<Gamepad>/rightTrigger", "interactions": "", "processors": "", "groups": "", "action": "Fire", "isComposite": false, "isPartOfComposite": false },
+
+                { "name": "", "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c801", "path": "<Keyboard>/r", "interactions": "", "processors": "", "groups": "", "action": "Reload", "isComposite": false, "isPartOfComposite": false },
+                { "name": "", "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c802", "path": "<Gamepad>/buttonWest", "interactions": "", "processors": "", "groups": "", "action": "Reload", "isComposite": false, "isPartOfComposite": false },
+
+                { "name": "", "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c901", "path": "<Keyboard>/escape", "interactions": "", "processors": "", "groups": "", "action": "Pause", "isComposite": false, "isPartOfComposite": false },
+                { "name": "", "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c902", "path": "<Gamepad>/start", "interactions": "", "processors": "", "groups": "", "action": "Pause", "isComposite": false, "isPartOfComposite": false }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

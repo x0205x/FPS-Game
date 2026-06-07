@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7166f8f16bfc28e4bb7c35c17b635d20
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 296315
+  packageName: Template - API - Free
+  packageVersion: 1.0
+  assetPath: Assets/template-api/Prefabs/ScriptableObject/ApiConfig.asset
+  uploadId: 697646

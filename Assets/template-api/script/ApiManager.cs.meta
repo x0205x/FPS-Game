@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: cc5d5c91833d56c4c892182c8f9c753d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 296315
+  packageName: Template - API - Free
+  packageVersion: 1.0
+  assetPath: Assets/template-api/script/ApiManager.cs
+  uploadId: 697646

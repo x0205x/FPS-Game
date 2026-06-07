@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 4e5a162771792e84183e7ca997c24e36
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 296315
+  packageName: Template - API - Free
+  packageVersion: 1.0
+  assetPath: Assets/template-api/Prefabs/ApiManager.prefab
+  uploadId: 697646

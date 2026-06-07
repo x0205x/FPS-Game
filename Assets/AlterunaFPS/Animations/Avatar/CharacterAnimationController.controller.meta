@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 4c536972bbedb8a409995539af18f824
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 259143
+  packageName: Multiplayer FPS Template
+  packageVersion: 1.2.0
+  assetPath: Assets/AlterunaFPS/Animations/Avatar/CharacterAnimationController.controller
+  uploadId: 907444

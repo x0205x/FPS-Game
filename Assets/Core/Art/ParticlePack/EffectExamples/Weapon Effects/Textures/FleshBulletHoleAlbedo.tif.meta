@@ -68,8 +68,8 @@ TextureImporter:
   assetBundleVariant: 
 AssetOrigin:
   serializedVersion: 1
-  productId: 73777
-  packageName: Legacy Particle Pack
-  packageVersion: 4.0
-  assetPath: Assets/UnityTechnologies/ParticlePack/EffectExamples/Weapon Effects/Textures/FleshBulletHoleAlbedo.tif
-  uploadId: 684565
+  productId: 259143
+  packageName: Multiplayer FPS Template
+  packageVersion: 1.2.0
+  assetPath: Assets/Core/Art/ParticlePack/EffectExamples/Weapon Effects/Textures/FleshBulletHoleAlbedo.tif
+  uploadId: 907444

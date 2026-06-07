@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0b4e716f71a2f124cb88e66acbc50bc2
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 259143
+  packageName: Multiplayer FPS Template
+  packageVersion: 1.2.0
+  assetPath: Assets/AlterunaFPS/Materials/GridBlue_01_Mat.mat
+  uploadId: 907444
