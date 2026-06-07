@@ -1,307 +1,133 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FPS Game — Browser Demo</title>
-  <meta name="description" content="Third-person FPS built in Unity 6. Play the WebGL demo or explore the open-source project." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #0a0c10;
-      --panel: rgba(12, 14, 20, 0.82);
-      --ember: #f59e0b;
-      --ember-dim: #b45309;
-      --text: #f5e6d3;
-      --muted: #9ca3af;
-      --border: rgba(245, 158, 11, 0.25);
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      min-height: 100vh;
-      font-family: "Source Sans 3", system-ui, sans-serif;
-      color: var(--text);
-      background: var(--bg);
-      background-image:
-        radial-gradient(ellipse 80% 60% at 20% 40%, rgba(180, 83, 9, 0.18), transparent 60%),
-        radial-gradient(ellipse 70% 50% at 80% 20%, rgba(59, 130, 246, 0.12), transparent 55%),
-        linear-gradient(180deg, #0a0c10 0%, #111827 100%);
-    }
-
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.25rem 2rem;
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(8px);
-    }
-
-    .logo {
-      font-family: Cinzel, serif;
-      font-size: 1.35rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--ember);
-      text-shadow: 0 0 24px rgba(245, 158, 11, 0.35);
-    }
-
-    nav a {
-      color: var(--muted);
-      text-decoration: none;
-      margin-left: 1.5rem;
-      font-size: 0.95rem;
-      transition: color 0.2s;
-    }
-
-    nav a:hover { color: var(--ember); }
-
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 2.5rem 1.5rem 4rem;
-    }
-
-    .hero h1 {
-      font-family: Cinzel, serif;
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      letter-spacing: 0.06em;
-      margin-bottom: 0.75rem;
-    }
-
-    .hero p {
-      color: var(--muted);
-      max-width: 52ch;
-      line-height: 1.6;
-      margin-bottom: 2rem;
-    }
-
-    .play-shell {
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-      background: var(--panel);
-      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
-    }
-
-    .play-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      padding: 0.85rem 1.25rem;
-      background: rgba(0, 0, 0, 0.35);
-      border-bottom: 1px solid var(--border);
-      flex-wrap: wrap;
-    }
-
-    .play-bar span {
-      font-size: 0.85rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 0.55rem 1.1rem;
-      border-radius: 6px;
-      border: 1px solid var(--ember-dim);
-      background: linear-gradient(180deg, #fbbf24 0%, #d97706 100%);
-      color: #1a1208;
-      font-weight: 600;
-      text-decoration: none;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: filter 0.2s, transform 0.15s;
-    }
-
-    .btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
-
-    .btn-ghost {
-      background: transparent;
-      color: var(--ember);
-      border-color: var(--border);
-    }
-
-    #game-container {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      min-height: 320px;
-      background: #000 center / cover no-repeat
-        linear-gradient(135deg, #1f2937 0%, #0f172a 50%, #111 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 2rem;
-    }
-
-    #unity-canvas {
-      width: 100%;
-      height: 100%;
-      display: none;
-      background: #000;
-    }
-
-    .placeholder h2 {
-      font-family: Cinzel, serif;
-      font-size: 1.4rem;
-      margin-bottom: 0.75rem;
-      color: var(--text);
-    }
-
-    .placeholder p {
-      color: var(--muted);
-      max-width: 40ch;
-      margin: 0 auto 1.25rem;
-      line-height: 1.55;
-      font-size: 0.95rem;
-    }
-
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1rem;
-      margin-top: 2.5rem;
-    }
-
-    .card {
-      padding: 1.25rem;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: rgba(0, 0, 0, 0.25);
-    }
-
-    .card h3 {
-      font-family: Cinzel, serif;
-      font-size: 1rem;
-      color: var(--ember);
-      margin-bottom: 0.5rem;
-    }
-
-    .card p { color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
-
-    footer {
-      text-align: center;
-      padding: 2rem;
-      color: var(--muted);
-      font-size: 0.85rem;
-      border-top: 1px solid var(--border);
-    }
-
-    footer a { color: var(--ember); }
-  </style>
-</head>
-<body>
-  <header>
-    <div class="logo">FPS Game</div>
-    <nav>
-      <a href="https://github.com/x0205x/FPS-Game" target="_blank" rel="noopener">Source</a>
-      <a href="https://github.com/xBrophyx" target="_blank" rel="noopener">Credits</a>
-    </nav>
-  </header>
-
-  <main>
-    <section class="hero">
-      <h1>Third-Person FPS</h1>
-      <p>
-        Unity 6 project with cinematic main menu, Spartan character locomotion,
-        weapon combat, and wave-based AI. Play the browser build below or clone
-        the repo to run it in the Editor.
-      </p>
-    </section>
-
-    <section class="play-shell">
-      <div class="play-bar">
-        <span id="status-label">WebGL demo</span>
-        <div>
-          <button class="btn" id="load-demo" type="button">Load demo</button>
-          <a class="btn btn-ghost" href="https://github.com/x0205x/FPS-Game" target="_blank" rel="noopener">View on GitHub</a>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity Web Player | FPS Game</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+  </head>
+  <body>
+    <div id="unity-container" class="unity-desktop">
+      <canvas id="unity-canvas" width=960 height=600 tabindex="-1"></canvas>
+      <div id="unity-loading-bar">
+        <div id="unity-logo"></div>
+        <div id="unity-progress-bar-empty">
+          <div id="unity-progress-bar-full"></div>
         </div>
       </div>
-      <div id="game-container">
-        <div class="placeholder" id="placeholder">
-          <h2>Browser demo</h2>
-          <p>
-            If a WebGL build is present in this folder, click <strong>Load demo</strong>
-            to play. Build from Unity via <code>Tools → Game → Build WebGL Demo</code>.
-          </p>
-          <a class="btn" href="https://github.com/x0205x/FPS-Game" target="_blank" rel="noopener">Get the project</a>
-        </div>
-        <canvas id="unity-canvas"></canvas>
+      <div id="unity-warning"> </div>
+      <div id="unity-footer">
+        <div id="unity-logo-title-footer"></div>
+        <div id="unity-fullscreen-button"></div>
+        <div id="unity-build-title">FPS Game</div>
       </div>
-    </section>
+    </div>
+    <script>
+      var canvas = document.querySelector("#unity-canvas");
 
-    <section class="features">
-      <article class="card">
-        <h3>Main menu</h3>
-        <p>Cinematic slideshow backgrounds, war ambience, looping score, and animated menu typography.</p>
-      </article>
-      <article class="card">
-        <h3>Combat</h3>
-        <p>Third-person shooting with weapon grip alignment, muzzle FX, shell eject, and combat animations.</p>
-      </article>
-      <article class="card">
-        <h3>Open source</h3>
-        <p>Full Unity project on GitHub. Fork it, build WebGL, and publish your own GitHub Pages demo.</p>
-      </article>
-    </section>
-  </main>
-
-  <footer>
-    Built with Unity 6 LTS · <a href="https://github.com/x0205x/FPS-Game">github.com/x0205x/FPS-Game</a>
-  </footer>
-
-  <script src="Build/loader.js" id="unity-loader" defer></script>
-  <script>
-    const placeholder = document.getElementById("placeholder");
-    const canvas = document.getElementById("unity-canvas");
-    const status = document.getElementById("status-label");
-    const loadBtn = document.getElementById("load-demo");
-    let started = false;
-
-    function hasWebGlBuild() {
-      return typeof createUnityInstance === "function";
-    }
-
-    loadBtn.addEventListener("click", () => {
-      if (started) return;
-      if (!hasWebGlBuild()) {
-        status.textContent = "WebGL build not found — run Build WebGL Demo in Unity";
-        return;
+      // Shows a temporary message banner/ribbon for a few seconds, or
+      // a permanent error message on top of the canvas if type=='error'.
+      // If type=='warning', a yellow highlight color is used.
+      // Modify or remove this function to customize the visually presented
+      // way that non-critical warnings and error messages are presented to the
+      // user.
+      function unityShowBanner(msg, type) {
+        var warningBanner = document.querySelector("#unity-warning");
+        function updateBannerVisibility() {
+          warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
+        }
+        var div = document.createElement('div');
+        div.innerHTML = msg;
+        warningBanner.appendChild(div);
+        if (type == 'error') div.style = 'background: red; padding: 10px;';
+        else {
+          if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
+          setTimeout(function() {
+            warningBanner.removeChild(div);
+            updateBannerVisibility();
+          }, 5000);
+        }
+        updateBannerVisibility();
       }
-      started = true;
-      placeholder.style.display = "none";
-      canvas.style.display = "block";
-      status.textContent = "Loading…";
-      createUnityInstance(canvas, {
-        dataUrl: "Build/WebGL.data",
-        frameworkUrl: "Build/WebGL.framework.js",
-        codeUrl: "Build/WebGL.wasm",
-        streamingAssetsUrl: "StreamingAssets",
-        companyName: "x0205x",
-        productName: "FPS Game",
-        productVersion: "1.0",
-      }).then(() => {
-        status.textContent = "Playing";
-      }).catch((err) => {
-        console.error(err);
-        status.textContent = "Failed to load WebGL build";
-        placeholder.style.display = "block";
-        canvas.style.display = "none";
-        started = false;
-      });
-    });
 
-    if (hasWebGlBuild()) {
-      status.textContent = "WebGL build ready";
-    }
-  </script>
-</body>
+      var buildUrl = "Build";
+      var loaderUrl = buildUrl + "/docs.loader.js";
+      var config = {
+        arguments: [],
+        dataUrl: buildUrl + "/docs.data.gz",
+        frameworkUrl: buildUrl + "/docs.framework.js.gz",
+        codeUrl: buildUrl + "/docs.wasm.gz",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "DefaultCompany",
+        productName: "FPS Game",
+        productVersion: "0.1",
+        showBanner: unityShowBanner,
+        // errorHandler: function(err, url, line) {
+        //    alert("error " + err + " occurred at line " + line);
+        //    // Return 'true' if you handled this error and don't want Unity
+        //    // to process it further, 'false' otherwise.
+        //    return true;
+        // },
+      };
+
+      // By default, Unity keeps WebGL canvas render target size matched with
+      // the DOM size of the canvas element (scaled by window.devicePixelRatio)
+      // Set this to false if you want to decouple this synchronization from
+      // happening inside the engine, and you would instead like to size up
+      // the canvas DOM size and WebGL render target sizes yourself.
+      // config.matchWebGLToCanvasSize = false;
+
+      // If you would like all file writes inside Unity Application.persistentDataPath
+      // directory to automatically persist so that the contents are remembered when
+      // the user revisits the site the next time, uncomment the following line:
+      // config.autoSyncPersistentDataPath = true;
+      // This autosyncing is currently not the default behavior to avoid regressing
+      // existing user projects that might rely on the earlier manual
+      // JS_FileSystem_Sync() behavior, but in future Unity version, this will be
+      // expected to change.
+
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        // Mobile device style: fill the whole browser client area with the game canvas:
+
+        var meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+        document.querySelector("#unity-container").className = "unity-mobile";
+        canvas.className = "unity-mobile";
+
+        // To lower canvas resolution on mobile devices to gain some
+        // performance, uncomment the following line:
+        // config.devicePixelRatio = 1;
+
+
+      } else {
+        // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
+        canvas.style.width = "960px";
+        canvas.style.height = "600px";
+      }
+
+      document.querySelector("#unity-loading-bar").style.display = "block";
+
+      var script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+          document.querySelector("#unity-progress-bar-full").style.width = 100 * progress + "%";
+              }).then((unityInstance) => {
+                document.querySelector("#unity-loading-bar").style.display = "none";
+                document.querySelector("#unity-fullscreen-button").onclick = () => {
+                  unityInstance.SetFullscreen(1);
+                };
+
+              }).catch((message) => {
+                alert(message);
+              });
+            };
+
+      document.body.appendChild(script);
+
+    </script>
+  </body>
 </html>
