@@ -5,12 +5,13 @@ namespace Game.UI
 {
     /// <summary>
     /// Main menu button handlers. Start Prologue loads the gameplay scene;
-    /// Credits opens the project author's GitHub profile.
+    /// Options opens the game site; Credits opens the Development.Bio release page.
     /// </summary>
     public class MainMenuController : MonoBehaviour
     {
         [SerializeField] private string prologueScene = "TestPlayground";
-        [SerializeField] private string creditsUrl = "https://github.com/xBrophyx";
+        [SerializeField] private string optionsUrl = "https://x0205x.github.io/FPS-Game/";
+        [SerializeField] private string creditsUrl = "https://github.com/x0205x/FPS-Game/releases/tag/Development.Bio";
 
         private void Awake()
         {
@@ -25,7 +26,11 @@ namespace Game.UI
             SceneManager.LoadScene(prologueScene);
         }
 
-        public void Options() { }
+        public void Options()
+        {
+            if (!string.IsNullOrEmpty(optionsUrl))
+                Application.OpenURL(optionsUrl);
+        }
 
         public void Credits()
         {
