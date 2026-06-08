@@ -11,7 +11,7 @@ namespace Game.UI
     {
         [SerializeField] private string prologueScene = "TestPlayground";
         [SerializeField] private string optionsUrl = "https://x0205x.github.io/FPS-Game/";
-        [SerializeField] private string creditsUrl = "https://github.com/x0205x";
+        private const string CreditsProfileUrl = "https://github.com/x0205x";
 
         private void Awake()
         {
@@ -34,8 +34,7 @@ namespace Game.UI
 
         public void Credits()
         {
-            if (!string.IsNullOrEmpty(creditsUrl))
-                Application.OpenURL(creditsUrl);
+            Application.OpenURL(CreditsProfileUrl);
         }
     }
 }
