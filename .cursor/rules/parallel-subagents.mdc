@@ -1,0 +1,38 @@
+---
+description: Dispatch parallel subagents to speed up multi-step FPS Game work
+alwaysApply: true
+---
+
+# Parallel Subagents (FPS Game)
+
+Use the **Task** tool to run independent work **in parallel** (one message, multiple Task calls). Do not serialize work that can happen at once.
+
+## Always parallelize
+
+| Situation | Subagents (same turn) |
+|-----------|------------------------|
+| Git push / PR prep | `shell`: status + diff + log + branch tracking |
+| New feature (aircraft, audio, UI, env) | `explore`: find patterns + `generalPurpose`: implement in separate folders |
+| Compile errors | `explore`: scan `Assets/Scripts` + `shell`: read `Editor.log` for `error CS` |
+| Scene + prefab + import | One agent per: editor import, prefab builder, scene wiring |
+| Push to GitHub | `shell`: commit + push using `https://x0205x@github.com/x0205x/FPS-Game.git` |
+
+## Subagent pick
+
+- **explore** — find files, conventions, where things live (`quick` for single target, `medium` for area)
+- **shell** — git, Unity batchmode, file copies, `Editor.log`
+- **generalPurpose** — implement a scoped feature when explore already mapped the pattern
+
+## Rules
+
+1. **One domain per agent** — never split the same file across agents.
+2. **Self-contained prompts** — include paths, scene names (`MainMenu`, `TestPlayground`), and expected output.
+3. **Parent integrates** — subagents return summaries; parent merges, resolves conflicts, runs one verification pass.
+4. **Skip Task** for single grep/read or one-file edits — use tools directly.
+5. **Do not touch `docs/`** (WebGL) unless the user explicitly asks.
+
+## Project paths
+
+- Unity project: `F:\Unity (Game Creator)\New Game\FPS Game`
+- Git remote: `https://github.com/x0205x/FPS-Game`
+- Push as: `git push https://x0205x@github.com/x0205x/FPS-Game.git main` if credential errors
