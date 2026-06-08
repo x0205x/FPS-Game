@@ -1,3 +1,4 @@
+using Game.Audio;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -23,7 +24,15 @@ namespace Game.UI
         {
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
+            SceneManager.sceneLoaded += OnGameplaySceneLoaded;
             SceneManager.LoadScene(prologueScene);
+        }
+
+        private static void OnGameplaySceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            if (scene.name != SpaceAmbienceController.GameplaySceneName) return;
+            SceneManager.sceneLoaded -= OnGameplaySceneLoaded;
+            SpaceAmbienceController.EnsurePlaying();
         }
 
         public void Options()

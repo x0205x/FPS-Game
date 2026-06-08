@@ -1,13 +1,15 @@
 using System.IO;
+using Game.UI;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Game.EditorTools
 {
     /// <summary>
-    /// Ensures main menu assets, Resources copies, and Build Settings are configured.
-    /// The scene UI is built at runtime by <see cref="Game.UI.MainMenuBootstrap"/>.
+    /// Ensures main menu assets, Resources copies, scene bootstrap, and Build Settings.
+    /// The scene UI is built at runtime by <see cref="MainMenuBootstrap"/>.
     /// </summary>
     public static class BuildMainMenuScene
     {
@@ -23,22 +25,43 @@ namespace Game.EditorTools
         [MenuItem("Tools/Game/Build Main Menu Scene")]
         public static void Build()
         {
+            FixAlterunaPrefabs.PrepareEditorForSceneBuild();
             if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
 
             EnsureBackgroundArt();
             EnsureResourcesArt();
             AssetDatabase.Refresh();
-            ConfigureBuildSettings();
 
-            if (AssetDatabase.LoadAssetAtPath<SceneAsset>(ScenePath) != null)
+            Scene scene;
+            if (AssetDatabase.LoadAssetAtPath<SceneAsset>(ScenePath) == null)
             {
-                EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
-                Debug.Log($"[BuildMainMenuScene] Opened {ScenePath}. UI builds at runtime via MainMenuBootstrap.");
+                scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+                EnsureFolder("Assets/Scenes");
             }
             else
             {
-                Debug.LogWarning($"[BuildMainMenuScene] {ScenePath} is missing.");
+                scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
             }
+
+            EnsureMenuBootstrapInScene();
+            EditorSceneManager.SaveScene(scene, ScenePath);
+            ConfigureBuildSettings();
+
+            Debug.Log(
+                $"[BuildMainMenuScene] Saved {ScenePath}. Press Play on MainMenu — UI builds at runtime via MainMenuBootstrap.");
+        }
+
+        private static void EnsureMenuBootstrapInScene()
+        {
+            GameObject bootstrap = GameObject.Find("MenuBootstrap");
+            if (bootstrap != null && bootstrap.GetComponent<MainMenuBootstrap>() != null)
+                return;
+
+            if (bootstrap != null)
+                Object.DestroyImmediate(bootstrap);
+
+            bootstrap = new GameObject("MenuBootstrap");
+            bootstrap.AddComponent<MainMenuBootstrap>();
         }
 
         private static void EnsureBackgroundArt()

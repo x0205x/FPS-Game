@@ -76,6 +76,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c109",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -115,7 +124,10 @@
                 { "name": "", "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c802", "path": "<Gamepad>/buttonWest", "interactions": "", "processors": "", "groups": "", "action": "Reload", "isComposite": false, "isPartOfComposite": false },
 
                 { "name": "", "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c901", "path": "<Keyboard>/escape", "interactions": "", "processors": "", "groups": "", "action": "Pause", "isComposite": false, "isPartOfComposite": false },
-                { "name": "", "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c902", "path": "<Gamepad>/start", "interactions": "", "processors": "", "groups": "", "action": "Pause", "isComposite": false, "isPartOfComposite": false }
+                { "name": "", "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c902", "path": "<Gamepad>/start", "interactions": "", "processors": "", "groups": "", "action": "Pause", "isComposite": false, "isPartOfComposite": false },
+
+                { "name": "", "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c951", "path": "<Keyboard>/f", "interactions": "", "processors": "", "groups": "", "action": "Interact", "isComposite": false, "isPartOfComposite": false },
+                { "name": "", "id": "9b9c2a01-1f3e-4d3a-9f77-1a2bd8f7c952", "path": "<Gamepad>/buttonNorth", "interactions": "", "processors": "", "groups": "", "action": "Interact", "isComposite": false, "isPartOfComposite": false }
             ]
         }
     ],

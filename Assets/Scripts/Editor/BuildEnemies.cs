@@ -100,7 +100,10 @@ namespace Game.EditorTools
         {
             var sources = new List<NavMeshBuildSource>();
             var markups = new List<NavMeshBuildMarkup>();
-            var bounds  = new Bounds(Vector3.zero, new Vector3(200f, 50f, 200f));
+            var bounds  = new Bounds(
+                Vector3.zero,
+                new Vector3(WarTornEnvironmentBuilder.ArenaHalfExtent * 2.2f, 50f,
+                    WarTornEnvironmentBuilder.ArenaHalfExtent * 2.2f));
 
             UnityEngine.AI.NavMeshBuilder.CollectSources(
                 bounds,
@@ -182,21 +185,26 @@ namespace Game.EditorTools
             Transform enemiesRoot = FindOrCreateRoot("Enemies");
             Transform patrolRoot  = FindOrCreateRoot("EnemyPatrolPoints");
 
+            float h = WarTornEnvironmentBuilder.ArenaHalfExtent;
             Vector3[] spawns =
             {
-                new(12f, 0f, 10f),
-                new(-14f, 0f, 8f),
-                new(6f, 0f, -12f),
+                new(h * 0.35f, 0f, h * 0.28f),
+                new(-h * 0.42f, 0f, h * 0.22f),
+                new(h * 0.22f, 0f, -h * 0.38f),
+                new(-h * 0.30f, 0f, -h * 0.32f),
+                new(h * 0.48f, 0f, -h * 0.14f),
             };
 
             Vector3[] patrol =
             {
-                new(10f, 0f, 6f),
-                new(16f, 0f, 12f),
-                new(-10f, 0f, 12f),
-                new(-18f, 0f, 4f),
-                new(0f, 0f, -16f),
-                new(8f, 0f, -8f),
+                new(h * 0.30f, 0f, h * 0.20f),
+                new(h * 0.46f, 0f, h * 0.34f),
+                new(-h * 0.28f, 0f, h * 0.32f),
+                new(-h * 0.50f, 0f, h * 0.12f),
+                new(-h * 0.10f, 0f, -h * 0.36f),
+                new(h * 0.18f, 0f, -h * 0.22f),
+                new(h * 0.42f, 0f, -h * 0.30f),
+                new(-h * 0.36f, 0f, -h * 0.26f),
             };
 
             var patrolPoints = new Transform[patrol.Length];
@@ -211,7 +219,14 @@ namespace Game.EditorTools
             for (int i = 0; i < spawns.Length; i++)
             {
                 string name = $"Enemy_{i + 1}";
-                if (enemiesRoot.Find(name) != null) continue;
+                Transform existing = enemiesRoot.Find(name);
+                if (existing != null)
+                {
+                    var existingController = existing.GetComponent<EnemyController>();
+                    if (existingController != null)
+                        SetPatrolPoints(existingController, patrolPoints);
+                    continue;
+                }
 
                 Vector3 pos = SnapToNavMesh(spawns[i]);
                 GameObject instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab, enemiesRoot);
@@ -408,7 +423,7 @@ namespace Game.EditorTools
 
         private static Vector3 SnapToNavMesh(Vector3 pos)
         {
-            if (NavMesh.SamplePosition(pos, out NavMeshHit hit, 4f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(pos, out NavMeshHit hit, 12f, NavMesh.AllAreas))
                 return hit.position;
             return pos;
         }

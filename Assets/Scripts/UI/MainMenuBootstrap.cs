@@ -17,6 +17,7 @@ namespace Game.UI
             if (MenuAlreadyBuilt()) return;
 
             EnsureEventSystem();
+            EnsureMenuCamera();
             BuildUi();
             EnsureWarAmbience();
             EnsureMenuMusic();
@@ -54,6 +55,23 @@ namespace Game.UI
             var es = new GameObject("EventSystem");
             es.AddComponent<EventSystem>();
             es.AddComponent<InputSystemUIInputModule>();
+        }
+
+        private static void EnsureMenuCamera()
+        {
+            if (Camera.main != null) return;
+
+            var camGo = new GameObject("MainMenuCamera");
+            var cam = camGo.AddComponent<Camera>();
+            cam.clearFlags = RenderSettings.skybox != null
+                ? CameraClearFlags.Skybox
+                : CameraClearFlags.SolidColor;
+            cam.backgroundColor = new Color(0.01f, 0.015f, 0.04f);
+            cam.depth = -100;
+            cam.cullingMask = 0;
+            cam.farClipPlane = 5000f;
+            camGo.tag = "MainCamera";
+            camGo.AddComponent<AudioListener>();
         }
 
         private void BuildUi()
@@ -110,7 +128,7 @@ namespace Game.UI
             var controller = menuRoot.AddComponent<MainMenuController>();
 
             CreateMenuButton(menuRoot.transform, "Start Prologue").onClick.AddListener(controller.StartPrologue);
-            CreateMenuButton(menuRoot.transform, "Options").onClick.AddListener(controller.Options);
+            CreateMenuButton(menuRoot.transform, "Web Version").onClick.AddListener(controller.Options);
             CreateMenuButton(menuRoot.transform, "Credits").onClick.AddListener(controller.Credits);
         }
 
