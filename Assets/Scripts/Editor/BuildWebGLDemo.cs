@@ -51,6 +51,9 @@ namespace Game.EditorTools
             Debug.Log($"[BuildWebGLDemo] WebGL demo built to {outputPath}. Commit and push docs/ for GitHub Pages.");
         }
 
+        /// <summary>Unity batchmode entry point.</summary>
+        public static void BuildFromCommandLine() => Build();
+
         private static string[] ResolveScenes()
         {
             var scenes = new System.Collections.Generic.List<string>();

@@ -16,7 +16,7 @@ namespace Game.EditorTools
     /// <summary>
     /// One-click test playground builder. Creates and saves a fresh scene at
     /// <c>Assets/Scenes/TestPlayground.unity</c> with a fully wired Player +
-    /// Cinemachine 3 rig + war-torn outdoor arena (800×800 m). Auto-builds the humanoid
+    /// Cinemachine 3 rig + lunar moon arena (1200×1200 m). Auto-builds the humanoid
     /// locomotion clips on first run. Press Play after the menu runs.
     ///
     /// Lives in an Editor/ folder so it never ships in builds.
@@ -33,8 +33,17 @@ namespace Game.EditorTools
         {
             FixAlterunaPrefabs.PrepareEditorForSceneBuild();
 
-            if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
+            if (!Application.isBatchMode && !EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+                return;
 
+            BuildInternal();
+        }
+
+        /// <summary>Unity batchmode entry: -executeMethod Game.EditorTools.BuildTestScene.BuildFromCommandLine</summary>
+        public static void BuildFromCommandLine() => Build();
+
+        private static void BuildInternal()
+        {
             // Make sure the humanoid locomotion controller exists before we try to wire it.
             BuildHumanoidAnimations.EnsureLocomotionAssets(forceRebuild: true);
             var locomotionController = AssetDatabase.LoadAssetAtPath<UnityEditor.Animations.AnimatorController>(
@@ -43,7 +52,7 @@ namespace Game.EditorTools
             var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
 
             var environmentRoot = new GameObject("Environment").transform;
-            WarTornEnvironmentBuilder.Build(environmentRoot, out GameObject primaryCover);
+            LunarEnvironmentBuilder.Build(environmentRoot, out GameObject primaryCover);
             EnsureSpaceAmbience(environmentRoot);
 
             GenerateGameplayAudio.EnsureAssets(force: false);

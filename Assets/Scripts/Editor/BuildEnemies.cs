@@ -102,8 +102,8 @@ namespace Game.EditorTools
             var markups = new List<NavMeshBuildMarkup>();
             var bounds  = new Bounds(
                 Vector3.zero,
-                new Vector3(WarTornEnvironmentBuilder.ArenaHalfExtent * 2.2f, 50f,
-                    WarTornEnvironmentBuilder.ArenaHalfExtent * 2.2f));
+                new Vector3(LunarEnvironmentBuilder.ArenaHalfExtent * 2.2f, 50f,
+                    LunarEnvironmentBuilder.ArenaHalfExtent * 2.2f));
 
             UnityEngine.AI.NavMeshBuilder.CollectSources(
                 bounds,
@@ -185,7 +185,7 @@ namespace Game.EditorTools
             Transform enemiesRoot = FindOrCreateRoot("Enemies");
             Transform patrolRoot  = FindOrCreateRoot("EnemyPatrolPoints");
 
-            float h = WarTornEnvironmentBuilder.ArenaHalfExtent;
+            float h = LunarEnvironmentBuilder.ArenaHalfExtent;
             Vector3[] spawns =
             {
                 new(h * 0.35f, 0f, h * 0.28f),

@@ -1,0 +1,7 @@
+Kenney Space Kit 2.0 (CC0)
+Source: https://opengameart.org/content/space-kit-remade
+Downloaded for lunar arena structures, rocks, craters, ships, and beacons.
+
+NASA 3D Resources
+Procedural lunar heightmap in LunarTerrainHeightmapBuilder is inspired by LRO surface variation.
+Optional NASA models can be imported manually from https://nasa3d.arc.nasa.gov/

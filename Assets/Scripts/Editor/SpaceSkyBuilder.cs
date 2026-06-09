@@ -17,25 +17,61 @@ namespace Game.EditorTools
 
         public static void Build(Transform parent, float skyDistance = 900f)
         {
-            ApplyRenderSettings();
+            ApplyRenderSettings(lunar: false);
             CreatePlanets(parent, skyDistance);
         }
 
-        private static void ApplyRenderSettings()
+        public static void BuildLunar(
+            Transform parent, float skyDistance, Material shipHullMaterial, Material shipAccentMaterial,
+            GameObject[] orbitalShipPrefabs = null)
+        {
+            ApplyRenderSettings(lunar: true);
+            CreatePlanets(parent, skyDistance);
+            CreateOrbitalTraffic(parent, skyDistance, shipHullMaterial, shipAccentMaterial, orbitalShipPrefabs);
+        }
+
+        private static void ApplyRenderSettings(bool lunar)
         {
             Material sky = EnsureSkyboxMaterial();
             if (sky != null)
                 RenderSettings.skybox = sky;
 
-            RenderSettings.ambientMode = AmbientMode.Trilight;
-            RenderSettings.ambientSkyColor = new Color(0.10f, 0.12f, 0.22f);
-            RenderSettings.ambientEquatorColor = new Color(0.06f, 0.07f, 0.12f);
-            RenderSettings.ambientGroundColor = new Color(0.18f, 0.14f, 0.10f);
+            if (lunar)
+            {
+                RenderSettings.ambientMode = AmbientMode.Trilight;
+                RenderSettings.ambientSkyColor = new Color(0.06f, 0.06f, 0.08f);
+                RenderSettings.ambientEquatorColor = new Color(0.04f, 0.04f, 0.05f);
+                RenderSettings.ambientGroundColor = new Color(0.12f, 0.12f, 0.13f);
 
-            RenderSettings.fog = true;
-            RenderSettings.fogMode = FogMode.Exponential;
-            RenderSettings.fogDensity = 0.0016f;
-            RenderSettings.fogColor = new Color(0.42f, 0.34f, 0.28f);
+                RenderSettings.fog = true;
+                RenderSettings.fogMode = FogMode.Exponential;
+                RenderSettings.fogDensity = 0.00045f;
+                RenderSettings.fogColor = new Color(0.04f, 0.04f, 0.05f);
+            }
+            else
+            {
+                RenderSettings.ambientMode = AmbientMode.Trilight;
+                RenderSettings.ambientSkyColor = new Color(0.10f, 0.12f, 0.22f);
+                RenderSettings.ambientEquatorColor = new Color(0.06f, 0.07f, 0.12f);
+                RenderSettings.ambientGroundColor = new Color(0.18f, 0.14f, 0.10f);
+
+                RenderSettings.fog = true;
+                RenderSettings.fogMode = FogMode.Exponential;
+                RenderSettings.fogDensity = 0.0016f;
+                RenderSettings.fogColor = new Color(0.42f, 0.34f, 0.28f);
+            }
+        }
+
+        private static void CreateOrbitalTraffic(
+            Transform parent, float skyDistance, Material hullMat, Material accentMat, GameObject[] shipPrefabs)
+        {
+            var trafficGo = new GameObject("OrbitalTraffic");
+            trafficGo.transform.SetParent(parent, worldPositionStays: false);
+            var traffic = trafficGo.AddComponent<OrbitalTrafficController>();
+            SetField(traffic, "skyRadius", skyDistance);
+            SetField(traffic, "shipHullMaterial", hullMat);
+            SetField(traffic, "shipAccentMaterial", accentMat);
+            SetFieldArray(traffic, "shipPrefabs", shipPrefabs);
         }
 
         private static void CreatePlanets(Transform parent, float skyDistance)
@@ -183,6 +219,29 @@ namespace Game.EditorTools
             SerializedProperty prop = so.FindProperty(fieldName);
             if (prop == null) return;
             prop.floatValue = value;
+            so.ApplyModifiedPropertiesWithoutUndo();
+        }
+
+        private static void SetField(Object target, string fieldName, Object value)
+        {
+            if (target == null) return;
+            var so = new SerializedObject(target);
+            SerializedProperty prop = so.FindProperty(fieldName);
+            if (prop == null) return;
+            prop.objectReferenceValue = value;
+            so.ApplyModifiedPropertiesWithoutUndo();
+        }
+
+        private static void SetFieldArray(Object target, string fieldName, Object[] values)
+        {
+            if (target == null) return;
+            var so = new SerializedObject(target);
+            SerializedProperty prop = so.FindProperty(fieldName);
+            if (prop == null || !prop.isArray) return;
+            prop.arraySize = values?.Length ?? 0;
+            if (values == null) return;
+            for (int i = 0; i < values.Length; i++)
+                prop.GetArrayElementAtIndex(i).objectReferenceValue = values[i];
             so.ApplyModifiedPropertiesWithoutUndo();
         }
     }
